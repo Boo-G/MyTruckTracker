@@ -1,0 +1,84 @@
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+
+</style>
+
+
+{% extends 'base.html' %}
+{% block title %}
+Expense Tracking
+{% endblock %}
+
+
+
+{% block content %}
+<h1 class="mt-2">EXPENSE TRACKING INFORMATION</h1>
+<hr class="mt-0 mb-4">
+
+
+
+{% comment %} Creating User inputs for expenses {% endcomment %}
+<form method = POST >
+    {% csrf_token %}
+
+    <fieldset><legend>Information About Charge</legend>
+        
+    <p>
+    <label for = "expense_shop">Shop Name: </label> 
+    <input type ='text' id ="expense_shop" placeholder = "Dealership" name ="expense_shop" required>
+    </select>
+    </p>
+ 
+
+    <p>
+    <label for = "date">Date of Charge: </label> 
+    <input type ='date' id ="date" name ="date" required>
+    </p>
+
+    <p>
+        <label for = "expense_repair">Repair: </label> 
+        <input type ='text' id ="expense_repair" placeholder = "Tire Rotation" name ="expense_repair" required>
+        </select>
+    </p>
+
+    <p>
+        <label for = "expense_cost">Cost: </label> 
+        <input type ='text' id ="expense_cost" placeholder = "1234" name ="expense_cost" required>
+        </select>
+    </p>
+
+    <p>
+        <label for = "lp">Vehicle License Plate: </label> 
+        <select name = 'lp' id = "License_plate" required = True>
+            {%for license_plate in lp_db%}
+            <option name  = lp value= {{license_plate.id}}> {{license_plate.plateID}} </option>   
+            {%endfor%}
+        </select>
+    </p>
+
+
+    {% comment %} <p>
+    <label for = "employeeID">User: </label> 
+    <input type ='text' id ="employeeID"      placeholder = "johnj" name ="employeeID" required>    
+    </p> {% endcomment %}
+
+ 
+
+    {% comment %} file upload, only allows file types of images {% endcomment %}
+    <p>
+    <label for = "expenseIMG">Upload a photo of the expense: </label> 
+    <input type="file" accept = ".pdf, .png, .jpeg, .jpg, .gif, .pdf, .raw" id="expenseIMG" name="expenseIMG" required>
+</p>
+    <button type ="submit" class = "submit">Submit</button>
+</fieldset>
+</form>
+
+
+
+
+
+{% endblock %}
+

@@ -1,0 +1,184 @@
+<style type="text/css">
+    form  { display: table;
+            margin: auto;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+  
+    
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: center;
+      width: 11.11%;
+      min-width: 160px;
+    }
+  </style>
+
+
+{% extends 'base.html' %}
+{% block title %}
+Sign In
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mt-2">Welcome {{user.get_username}}</h1>
+<hr class="mt-0 mb-4">
+
+{% comment %} headers for the tables {% endcomment %}
+
+<h2>VEHICLES ASSIGNED TO YOU</h2>
+<div class="table_container">
+    <table class = "table">
+      <thead>
+        <tr>
+          <th >Assigned Employee</th>
+          <th >License Plate</th>
+          <th >VIN</th>
+          <th >Brand</th>
+          <th >Model</th>
+          <th >Year</th>
+          <th >Kms</th>
+          <th >Current Trip</th>
+          <th >Active</th>
+        </tr>
+      </thead>
+    <tbody>
+      <tr></tr>
+      <tr></tr>
+    </tbody>
+
+</div>
+<div class="table_container">
+  <table class = "table">
+{% for vehicle in vehicle_db %}
+    {% if vehicle.assignedEmployee ==  user.get_username %}
+
+            <tr class = "displayed_table_values">
+              <td>{{vehicle.assignedEmployee}}</td>
+              <td>{{vehicle.LicensePlate}}</td>
+              <td>{{vehicle.VIN}}</td>
+              <td>{{vehicle.make}}</td>
+              <td>{{vehicle.model}}</td>
+              <td>{{vehicle.year}}</td>
+              <td>{{vehicle.kms}}</td>
+              <td>{{vehicle.currentTrip.location}}</td>
+              <td>{{vehicle.active}}</td>
+            </tr>
+            
+          {% endif %}
+          {% endfor %}
+        </table>
+      </div>
+
+
+<h2>TICKETS ASSIGNED TO YOU</h2>
+<div class="table_container">
+    <table class = "table">
+      <thead>
+        <tr>
+          <th class>Assigned Employee</th>
+          <th class>License Plate</th>
+          <th class>Date</th>
+          <th class>Ticket Type</th>
+          <th class>Ticket Amount</th>
+          <th class>Ticket</th>
+        </tr>
+      </thead>
+    <tbody>
+      <tr></tr>
+      <tr></tr>
+    </tbody>
+
+</div>
+<div class="table_container">
+{% for ticket in ticket_db %}
+
+
+{% if ticket.assignedEmployee.id == user.id %} 
+
+      <table class = "table">
+        <tr>
+          <td>{{ticket.assignedEmployee}}</td>
+          <td>{{ticket.LicensePlate}}</td>
+          <td>{{ticket.date}}</td>
+          <td>{{ticket.ticketType}}</td>
+          <td>{{ticket.ticketAmt}}</td>
+          <td>{{ticket.ticket}}</td>
+          <tr></tr>
+          <tr></tr>
+        </tr>
+      </table>
+      {% endif %}
+      {% endfor %}
+    </div>
+</table>
+
+
+<h2>YOUR PERSONAL VEHICLE REQUESTS </h2>
+<div class = "table_container">
+  <table class = "table">
+    <tr>      
+      <th class>Employee</th>
+      <th class>Reason</th>
+      <th class>Date</th>
+      <th class>Kilometers</th>
+      <th class>Approved</th>
+
+    </tr>
+  </thead>
+
+</div>
+<div class="table_container">
+
+{% for personal_vehicle in personal_vehicle %}
+{% if personal_vehicle.assignedEmployee.id == user.id %} 
+
+  <table class = "table">
+    <tr>
+        <td>{{personal_vehicle.assignedEmployee}}</td>
+        <td>{{personal_vehicle.reason}}</td>
+        <td>{{personal_vehicle.date}}</td>
+        <td>{{personal_vehicle.km}}</td>
+        <td>{{personal_vehicle.approved}}</td>
+    </tr>
+  </table>
+      {% endif %}
+      {% endfor %}
+</div>
+</table>
+
+<h2>ACCIDENTS </h2>
+
+{% comment %} headers for the table expenses {% endcomment %}
+  <div class = "table_container">
+      <table class = "table">
+        <tr>      
+          <th class>Location</th>
+          <th class>Employee</th>
+          <th class>License Plate</th>
+          <th class>Date</th>
+          <th class>At Fault</th>
+          <th class>Picture</th>
+        </tr>
+      </table>
+
+    {% for accident in accidents %}
+    {% if accident.assignedEmployee.id == user.id %} 
+
+      <table class = "table">
+        <tr class = "displayed_table_values">
+            <td>{{accident.location}}</td>
+            <td>{{accident.assignedEmployee.username}}</td>
+            <td>{{accident.LicensePlate.plateID}}</td>
+            <td>{{accident.date}}</td>
+            <td>{{accident.fault}}</td>            
+            <td>{{accident.picture}}</td>
+        </tr>
+      </table>
+
+    {% endif %}
+    {% endfor %}
+  </div>
+
+{% endblock %}

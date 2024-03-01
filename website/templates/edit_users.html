@@ -1,0 +1,55 @@
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+  
+  </style>{% extends 'base.html' %}
+
+
+{% block content %}
+    <h1 class="mt-2">EDIT USERS</h1>
+    {% comment %} <hr class="mt-0 mb-4"> {% endcomment %}
+    <br/>
+
+    {% comment %} <h1 class="mt-2">USERS DATABASE</h1> {% endcomment %}
+    <hr class="mt-0 mb-4">
+
+{% if form.errors %}
+    {{form.errors}}
+{% endif %}
+
+    <form method=POST>
+        <fieldset>
+            <input type="hidden" name="csrfmiddlewaretoken" value="8uNUv0SS83L1naFKYmhIdGIx0uqZnkY9ziXSLkz8PqwCUU977lMIJ8bpmRtifUlh">
+            {% csrf_token %}
+          
+            <p>
+                <label for="id_username" class= "username">Username:</label>
+                <input type="text" name="username" value={{user.username}} maxlength="150" autofocus required id="id_username"> 
+            </p>
+            
+            
+            <p>
+                <label for="id_first_name">First name:</label>
+                <input type="text"  name="first_name" value={{user.first_name}} maxlength="50" required id="id_first_name">                
+            </p>
+                
+             
+            <p>
+                <label for="id_last_name">Last name:</label>
+                <input type="text" name="last_name" value={{user.last_name}} maxlength="50" required id="id_last_name">
+            </p>
+
+            <p>
+                <label for = "id_email">Email: </label>
+                <input type="email"  name="email" value={{user.email}} maxlength="320" required id = "id_email">
+            </p>
+            <br>
+            <button type="submit" class= "submit" > Submit </button>
+        </fieldset>
+    </form> 
+
+
+
+{% endblock %}

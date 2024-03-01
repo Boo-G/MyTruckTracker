@@ -1,0 +1,93 @@
+<style type="text/css">
+    form  { display: table; 
+            margin: auto;
+            vertical-align: middle;    }
+    p     { display: table-row;
+            margin-bottom: 10px;}
+    label { display: table-cell;
+            padding-right: 30px;
+            vertical-align: middle;    }
+    input { display: table-cell;
+            vertical-align: middle;     }
+
+    .helptext {
+        display: block;
+    }
+    .username:hover + .helptext {
+        display: block;
+        colour: red;
+    }
+
+</style>
+
+{% extends 'base.html' %}
+{% block title %}
+Search
+{% endblock %}
+
+
+{% block content %}
+
+<h1 class="mt-2" style="text-align: center;">NEW USER REGISTRATION </h1>
+<hr class="mt-0 mb-4">
+
+{% if form.errors %}
+    {{form.errors}}
+{% endif %}
+
+    <form method=POST>
+        <fieldset>
+            <input type="hidden" name="csrfmiddlewaretoken" value="8uNUv0SS83L1naFKYmhIdGIx0uqZnkY9ziXSLkz8PqwCUU977lMIJ8bpmRtifUlh">
+            {% csrf_token %}
+          
+            <p>
+                <label for="id_username" class= "username"><abbr title =" Required 150 characters or fewer Letters, digits and @/./+/-/_ only.">Username:</abbr></label>
+                <input type="text" placeholder = "JAdam"name="username" maxlength="150" autofocus required id="id_username"> 
+            </p>
+            
+            
+            <p>
+                <label for="id_first_name">First name:</label>
+                <input type="text" placeholder = "John" name="first_name" maxlength="50" required id="id_first_name">                
+            </p>
+                
+             
+            <p>
+                <label for="id_last_name">Last name:</label>
+                <input type="text" placeholder = "Adam" name="last_name" maxlength="50" required id="id_last_name">
+            </p>
+
+            <p>
+                <label for = "id_email">Email: </label>
+                <input type="email" placeholder= "Jadam@company.com" name="email" maxlength="320" required id = "id_email">
+            </p>
+             
+
+            <p>
+                <label for="id_password1" ><abbr title ="Your password can’t be too similar to your other personal information.
+                    Your password must contain at least 8 characters.
+                    Your password can’t be a commonly used password.
+                    Your password can’t be entirely numeric">
+                    Password:</abbr></label>
+                <input type="password" placeholder= "Password" name="password1" autocomplete="new-password" required id="id_password1">
+
+                </ul></span>
+            </p>
+
+            <p>
+                <label for="id_password2">Password confirmation:</label>
+                <input type="password" placeholder = "Reenter password" name="password2" autocomplete="new-password" required id="id_password2">
+            </p>
+
+            
+            <br/>
+            <div style="text-align:center;">
+                <button type="submit" class= "submit" >Submit</button>
+            </div>
+                
+            
+        </fieldset>
+    </form>
+    
+
+{% endblock %}

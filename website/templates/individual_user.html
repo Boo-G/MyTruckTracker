@@ -1,0 +1,123 @@
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+</style>
+
+{% extends 'base.html' %}
+{% block title %}
+About The User
+{% endblock %}
+
+
+{% block content %}
+    <h1 class="mt-2">Individual User</h1>
+    <hr class="mt-0 mb-4">
+    {% comment %} headers for the table expenses {% endcomment %}
+    <div class = "table_container">
+        <table class = "table">
+            <tr>      
+            <th class>First Name</th>
+            <th class>Last Name</th>
+            <th class>Email</th>
+            <th class>Employee ID</th>
+            <th class>Manager</th>
+            <th class>Tickets</th>
+            </tr>
+        </table>
+
+        <table class = "table">
+            <tr class = "displayed_table_values">
+                <td>{{individual_user.first_name}}</td>
+                <td>{{individual_user.last_name}}</td>
+                <td>{{individual_user.email}}</td>
+                <td>{{individual_user.username}}</td>
+                <td>{{individual_user.is_superuser}}</td>
+                <td>{{individual_user.ticket}}</td>
+                
+            </tr>
+        </table>
+    </div>
+    
+    <h3> {{individual_user.first_name}} {{individual_user.last_name}} Assigned Vehicle</h3>
+    
+    <div class="table_container">
+        <table class="table1">
+            <tr>
+            <th class>Make</th>
+            <th class>Model</th>
+            <th class>KMS</th>
+            <th class>Year</th>
+            <th class>VIN</th>
+            <th class>License Plate</th>
+            <th class>Active</th>
+            </tr>
+        </table>
+   
+
+        {% for user in vehicle_all %}
+        {% if individual_user.username  == user.assignedEmployee %}
+        <table class="table1">
+            <tr class="displayed_table_values">
+            <td>{{ user.make }}</td>
+            <td>{{ user.model }}</td>
+            <td>{{ user.kms }}</td>
+            <td>{{ user.year }}</td>
+            <td>{{ user.VIN }}</td>
+            <td><a href="/individual_vehicle/{{user.id}}">{{user.LicensePlate.plateID}}</td></a>
+            <td>{{ user.active }}</td>
+            </tr>
+        </table>
+        {% endif %}
+        {% empty %}
+        <table class= "table1">
+            <tr class="displayed_table_values">
+            <td>Pending</td>
+            </tr>
+        </table>
+        {% endfor %}
+    </div>
+
+<h3> {{individual_user.first_name}} {{individual_user.last_name}} Tickets</h3>
+<div class="table_container">
+    <table class = "table">
+      <thead>
+        <tr>
+          <th class>Assigned Employee</th>
+          <th class>License Plate</th>
+          <th class>Date</th>
+          <th class>Ticket Type</th>
+          <th class>Ticket Amount</th>
+          <th class>Ticket</th>
+        </tr>
+      </thead>
+    <tbody>
+      <tr></tr>
+      <tr></tr>
+    </tbody>
+
+
+{% for ticket in ticket_db %}
+
+
+{% if ticket.assignedEmployee.id == user.id %} 
+
+      <table class = "table">
+        <tr>
+          <td>{{ticket.assignedEmployee}}</td>
+          <td>{{ticket.LicensePlate}}</td>
+          <td>{{ticket.date}}</td>
+          <td>{{ticket.ticketType}}</td>
+          <td>{{ticket.ticketAmt}}</td>
+          <td>{{ticket.ticket}}</td>
+          <tr></tr>
+          <tr></tr>
+        </tr>
+      </table>
+      {% endif %}
+      {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

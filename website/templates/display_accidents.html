@@ -1,0 +1,47 @@
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+
+
+</style>
+
+{% extends 'base.html' %}
+{% block title %}
+Display Expenses
+{% endblock %}
+
+{% block content %}
+<h1 class="mt-2">ACCIDENTS</h1>
+<hr class="mt-0 mb-4">
+
+{% comment %} headers for the table expenses {% endcomment %}
+  <div class = "table_container">
+      <table class = "table">
+        <tr>      
+          <th class>Location</th>
+          <th class>Employee</th>
+          <th class>License Plate</th>
+          <th class>Date</th>
+          <th class>At Fault</th>
+          <th class>Picture</th>
+        </tr>
+      </table>
+
+    {% for accident in accidents %}
+      <table class = "table">
+        <tr class = "displayed_table_values">
+            <td>{{accident.location}}</td>
+            <td>{{accident.assignedEmployee.username}}</td>
+            <td>{{accident.LicensePlate.plateID}}</td>
+            <td>{{accident.date}}</td>
+            <td>{{accident.fault}}</td>            
+            <td>{{accident.picture}}</td>
+        </tr>
+      </table>
+
+    {% endfor %}
+  </div>
+{%endblock%}
+

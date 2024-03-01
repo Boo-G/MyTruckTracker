@@ -1,0 +1,96 @@
+
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+    fieldset {display: inline}
+
+</style>
+
+
+{% extends 'base.html' %}
+{% block title %}
+Add to Database
+{% endblock %}
+
+
+{% block content %}
+
+<h1 class="mt-2">ADD VEHICLE TO DATABASE</h1>
+<hr class="mt-0 mb-4">
+
+
+
+<form method="POST" ><fieldset><legend>Vehicle Information</legend>
+    {% csrf_token %}
+
+
+    <input type="hidden" id="assignedEmployee" name="assignedEmployee" value="Available" />
+
+        <p>
+        <label for = "make">Brand: </label> 
+        <input type ='text' id ="make" placeholder = "Ford" name ="make" required = True>
+        <br><br>
+        </p>
+    
+        <p>
+        <label for = "model">Model: </label> 
+        <input type ='text' id ="model" name ="model" placeholder = "F150" required = True>
+        <br><br>
+        </p>
+
+        <p>
+            <label for = "assigned_license_plate">License Plate: </label> 
+            <select name = 'assigned_license_plate' id = "LicensePlate" required = True>
+                {%for license_plate in lp_db%}
+                <option name  = assigned_license_plate value= {{license_plate.id}}> {{license_plate.plateID}} </option>   
+                {%endfor%}
+            </select>
+        
+        {% if user.is_superuser %}
+
+        <a href = "/add_license_plate">Add new License plate</a>
+        
+        {% endif %}
+       
+        <br><br>
+        </p>
+
+
+        <p>
+        <label for = "year">Year: </label> 
+        <input type ='text' id ="year" name ="year" placeholder = "2022" required = True>
+        <br><br>
+        </p>
+
+
+
+        <p>
+        <label for = "kms">Kilometers: </label> 
+        <input type ='text' id ="kms" name ="kms" placeholder = "100" required = True>
+        <br><br>
+        </p>
+
+        <p>
+        <label for = "VIN">VIN: </label> 
+        <input type ='text' id ="VIN" name ="VIN" placeholder = "123abc123abc123ab" maxlength="17" required = True>
+        <br><br>
+        </p>
+
+        <p>
+        <label for = "location">Current Trip: </label> 
+        <input type ='text' id ="location" name ="currentTrip" placeholder = "Regina" required = True>
+        <br><br>
+
+        
+        <input type="hidden" id="checked_in" name="checked_in" value="Checked Out" />
+
+    </p>
+        <button type="submit" class= "submit"> Submit </button>
+    </fieldset>
+    </form>
+</fieldset>
+
+
+{% endblock %}

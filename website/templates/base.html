@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MyTruckTracker</title>
+  <meta name ="viewport" content="width=device-width, initial-scale=1.0">
+  
+</head>
+
+
+<style type="text/css">
+  * {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+  }
+
+  /* Navbar container */
+  .navbar {
+    overflow: hidden;
+    background-color: #C81900;
+    font-family: montserrat;
+    box-shadow: 10px 10px 5px black;
+    margin: 0;
+  }
+  
+
+  .small-nav .dropdown{
+    display:none;
+  } 
+
+  
+  /* Links inside the navbar */
+  .navbar a{
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    margin: 10;
+  }
+
+  /* The dropdown container */
+  .dropdown {
+    float: left;
+    overflow: hidden;
+  }
+  
+  /* Dropdown button */
+  .dropdown .dropbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit; /* Important for vertical align on mobile phones */
+    margin-top: 10; /* Important for vertical align on mobile phones */
+  }
+  
+  /* Add a red background color to navbar links on hover */
+  .navbar a:hover, .dropdown:hover .dropbtn, .navbar .submit:hover, .navbar .logo:hover {
+    transition: 0.5s;
+    background-image: linear-gradient(to right,#C81900 0%, #921200 51%, #C81900 100%);
+  }
+
+  /* Dropdown content (hidden by default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    padding: 6px 16px;
+  }
+
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: centerx;
+  }
+
+  /* Add a grey background color to dropdown links on hover */
+  .dropdown-content a:hover{
+    background-image: linear-gradient(to right,#f9f9f9 0%, #ddd 51%, #f9f9f9 100%);
+  }
+
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content{
+    display: block;
+  }
+  
+  .dropdown-content .dropbtn:hover .dropdown-submenu{
+    display: block;
+  }
+  
+  .search_submit, .btn{ 
+    flex: .1 .1 auto;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    display: inline-block;
+    background-size: 200% auto;
+    color: white;
+    text-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    transition: 0.5s;
+    background-image: linear-gradient(to right,#C81900 0%, #921200 51%, #C81900 100%);
+    margin-top: 10;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .submit{ 
+    flex: .1 .1 auto;
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    display: block;
+    background-size: 200% auto;
+    color: white;
+    text-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    transition: 0.5s;
+    background-image: linear-gradient(to right,#C81900 0%, #921200 51%, #C81900 100%);
+    cursor: pointer;
+    position: middle;
+  }
+
+  .search_submit:hover, .submit:hover {
+    background-position: right center; 
+  }
+
+  
+
+.navbar .logo {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 5px 5px;
+  text-decoration: none;
+  margin-top: 0;
+}
+
+  /* Search bar styling */ 
+  .navbar input[type=search],input[type=checkbox], input[type=email], input[type=text], input[type=date], input[type=tel], input[type=number], input[type=password],input[type=datetime-local], select  {
+    padding: 6px;
+    border: none;
+    margin-top: 16px;
+    margin-right: 10px;
+    font-size: 17px;
+    color: black;
+    border-color: #ddd;
+    border-width: 2px;
+    border-style: solid;
+  }
+
+
+.table_container{
+  overflow: auto;
+  width: 100%;
+}
+
+.table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  position: sticky;
+  top:0;
+}
+
+.table:nth-child(even) {
+  background-color: #dddddd;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  width: 11.11%;
+  min-width: 170px;
+}
+
+.filter_by{
+  font-family: Arial;
+  padding-right: 10px; 
+
+}
+
+select  {
+  padding: 6px;
+  border: none;
+  margin-top: 16px;
+  margin-right: 10px;
+  font-size: 17px;
+  color: black;
+  border-color: #ddd;
+  border-width: 1px;
+  border-style: solid;
+}
+input[type=file]  {
+  padding: 6px;
+  border: none;
+  margin-top: 16px;
+  margin-right: 10px;
+  font-size: 17px;
+  color: black;
+
+}
+
+.table_container{
+  overflow: auto;
+  width: 100%;
+  padding-top: 10px;
+  border-top: 1px solid #B2B2B2;
+  border-bottom: 1px solid #B2B2B2;
+}
+
+.table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  position: sticky;
+  top:0;
+}
+
+.table1 {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  position: sticky;
+  top:0;
+}
+
+.table:nth-child(even) {
+  background-color: #dddddd;
+  width: 100%;
+}
+.table1:nth-child(even) {
+  background-color: #dddddd;
+  width: 100%;
+}
+
+td, th {
+  border-right: 1px solid #B2B2B2;
+  border-left: 1px solid #B2B2B2;
+  text-align: left;
+  padding-left: 10px;
+  width: 11.11%;
+  min-width: 170px;
+}
+tr {
+  border: none;
+}
+
+fieldset, form {
+  margin: auto;
+}
+
+h1, h2, h3 {
+  text-align: center;
+}
+
+
+  @media screen and (max-width: 700px){
+    .navbar {
+      display: none;
+    }
+
+    .small-nav .dropdown{
+      display: block;
+      height: 80px;
+      width: 100%;
+      background-color: #C81900;
+      right: 100%;
+      transition: all 0.5s;
+      text-align: center;
+    }
+
+    .dropdown .dropbtn {
+      font-size: 50px;
+      width: 95%;
+      height: 70px;
+      border: none;
+      text-align: center;
+    }
+
+    .navbar a:hover, .dropdown:hover .dropbtn, .navbar .submit:hover, .navbar .logo:hover {
+      transition: 0.5s;
+      background-image: linear-gradient(to right,#C81900 0%, #921200 51%, #C81900 100%);
+      
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute; 
+      background-color: #C81900;
+      width: 95%;
+      padding: 0px 11px;
+    }
+  
+    .dropdown-content a {
+      float: none;
+      color: black;
+      text-align: center;
+      font-size: 25px;
+      padding: 12px 16px;
+      text-decoration: none;
+      
+      text-align: centerx;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+      position: absolute;
+    }
+
+
+    .fsb-dropdown .fsb-dropbtn .adb-dropdown .adb-dropbtn {
+      font-size: 50px;
+      border: none;
+      outline: none;
+      width: 95%;
+      position: absolute;
+      color: #C81900;
+      background-color: inherit;
+      border: none;
+      text-align: center;
+    }
+
+    .navbar a:hover, .fsb-dropdown:hover .fsb-dropbtn, .adb-dropdown:hover .adb-dropbtn, .ap-dropdown:hover .ap-dropbtn, .navbar .submit:hover, .navbar .logo:hover {
+      transition: 0.5s;
+      background-image: linear-gradient(to right,#C81900 0%, #921200 51%, #C81900 100%);
+    }
+  
+    .fsb-dropdown-content a, .adb-dropdown-content a , .ap-dropdown-content a {
+      
+      float: none;
+      color: black;
+      text-align: center;
+      font-size: 25px;
+      padding: 6px 10px;
+      text-decoration: none;
+      text-align: centerx;
+    }
+
+    .submit, .btn{ 
+      margin: 10px;
+      padding: 10px;
+      font-size: 20px;
+      border-radius: 10px;
+      margin-top: 20;
+      
+    }
+
+    .small-nav input[type=search], input[type=text], input[type=date], filter_by  {
+      padding: 10px;
+      border: none;
+      margin-top: 16px;
+      font-size: 17px;
+      color: black;
+      border-color: #ddd;
+      border-size: 10;
+      border-style: solid;
+      position: center;
+    }
+
+    form {
+      display: inline-block;
+    }
+
+  }
+
+</style>
+<body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> 
+{% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> {% endcomment %}
+  
+{% load static %}
+
+  
+<div class="navbar">
+  {%if not user.is_authenticated%}
+  <a class="logo" > <img src='{% static "logo1.png" %}' alt="Company Logo" style="width:50px;height:50px;"/>
+  {%endif%}
+
+  {% if user.is_authenticated%}
+  <a class="logo" href="/home"> <img src='{% static "logo1.png" %}' alt="Company Logo" style="width:50px;height:50px;"/>
+  </a>
+
+    <div class="dropdown">
+      <button class="dropbtn"><i class="fa fa-fw fa-search"></i> Filtered Search
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/vehicle">Vehicles</a>
+        <a href="/user">Users</a>
+        <a href="/display_expenses">Expenses</a>
+        {% if user.is_superuser%}
+        <a href="/display_accidents">Accidents</a>
+        {% endif %}
+
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn"><i class="fa fa-fw fa-database"></i> Add
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+          {% if user.is_superuser%}
+          <a href="/add_truck">Add a Vehicle</a>
+          <a href="/add_user">Add a User</a>
+          {% endif %}
+          <a href="/tickets">Add a Ticket</a>
+          <a href="/expense">Add an Expense</a>
+          <a href="/accidents">Add an Accident</a>
+          <a href="/personal_vehicle">Add a Personal Vehicle Trip</a>
+        </div>
+    </div>
+
+    {% if user.is_authenticated%}
+    {% if user.is_superuser %}
+    <div class="dropdown">
+      <button class="dropbtn"><i class="fa fa-fw fa-database"></i> Admin Portal
+        <i class="fa fa-caret-down"></i>
+
+      </button>
+    <div class="dropdown-content">
+    <a href="/admin_approval">Admin Approvals </a>
+    <a href="/view_databases">View Databases</a>
+    </div>
+    </div>
+    
+    {% endif %}
+    
+    {% else %}
+    <a href="/login_user"><i class=" fa fa-fw fa-ticket"></i> Login </a>
+    <a href="/register_user"><i class=" fa fa-fw fa-ticket"></i> Register </a>
+    {% endif %}
+    
+    {% comment %} top right of the nav bar search. {% endcomment %}
+    
+    <a href="/profile"><i class=" fa fa-fw fa-user"></i> Profile </a>
+    <a href="/logout_user" ><i class=" fa fa-fw fa-sign-out-alt"></i> Logout </a>
+    <form action="/search_vehicles" method="get">
+      {% csrf_token %}
+      <input type="search" placeholder="Vehicle, User ID, VIN" aria-lable="Search" name='searched' >
+      <button type="search_submit" class = "search_submit" href = "search_vehicles" formmethod = "post">Search</button>
+    </form>
+    {% else %}
+    <a href="/login_user"><i class=" fa fa-fw fa-ticket"></i> Login </a>
+    <a href="/register_user"><i class=" fa fa-fw fa-ticket"></i> Register </a>
+    {% endif %}
+
+  
+
+</div>
+
+<div class="small-nav">
+
+  <div class="dropdown">
+    <button class="dropbtn"><i class="fas fa-bars"></i></button>
+    <div class="dropdown-content">
+        <a class="logo" href="/home"> <img src="{{ STATIC_URL }}static\images\logo1.png" alt="Company Logo" style="width:50px;height:50px;"/>
+        </a>      
+
+      {% if user.is_authenticated%}
+
+    <div class="fsb-dropdown">
+      <button class="fsb-dropbtn"><i class="fa fa-fw fa-search"></i> Filtered Search
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="fsb-dropdown-content">
+        <a href="/vehicle">Vehicles</a>
+        <a href="/user">Users</a>
+        <a href="/display_expenses">Expenses</a>
+      </div>
+    </div>
+
+      {% if user.is_superuser%}
+      <div class="adb-dropdown">
+        <button class="adb-dropbtn"><i class="fa fa-fw fa-database"></i> Add
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="adb-dropdown-content">
+          <a href="/add_truck">Add a Vehicle</a>
+          <a href="/add_user">Add a User</a>
+          <a href="/tickets">Add a Ticket</a>
+          <a href="/expense">Add an Expense</a>
+
+        </div>
+    </div>
+    {% endif %}
+
+
+    {% if user.is_authenticated%}
+    {% if user.is_superuser %}
+  
+    
+    <div class="ap-dropdown">
+      <button class="ap-dropbtn"><i class="fa fa-fw fa-database"></i> Admin Portal
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="ap-dropdown-content">
+        <a href="/admin_approval">Admin Approvals</a>
+        <a href="/view_databases">View Databases</a>
+      </div>
+  </div>
+    
+    {% endif %}
+    
+    {% else %}
+    <a href="/login_user"><i class=" fa fa-fw fa-ticket"></i> Login </a>
+    <a href="/register_user"><i class=" fa fa-fw fa-ticket"></i> Register </a>
+    {% endif %}
+    
+    {% comment %} top right of the nav bar search. {% endcomment %}
+    
+    <a href="/profile"><i class=" fa fa-fw fa-user"></i> Profile </a>
+    <a href="/logout_user" ><i class=" fa fa-fw fa-sign-out"></i> Logout </a>
+    {% else %}
+    <a href="/login_user"><i class=" fa fa-fw fa-ticket"></i> Login </a>
+    <a href="/register_user"><i class=" fa fa-fw fa-ticket"></i> Register </a>
+    <form action="/search_vehicles" method="get">
+      {% csrf_token %}
+      <input type="search" placeholder="Vehicle, User ID, VIN" aria-lable="Search" name='searched' >
+      <button type="search_submit" class = "search_submit" href = "search_vehicles" formmethod = "post">Search</button>
+    </form>
+    {% endif %}
+    
+
+    </div>
+  </div>
+  
+
+  <!-- Page content -->
+
+  {% if messages %}
+  {% for message in messages %}
+    <script>
+      window.alert("{{message}}");
+    </script>
+  {% endfor %}
+
+{% endif %}
+  <div class="main">
+    <div class="row justify-content-center">
+      <div class="col-8">
+
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+
+  </div>
+  
+
+</body>
+</html>

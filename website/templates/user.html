@@ -1,0 +1,64 @@
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+
+</style>
+{% extends 'base.html' %}
+{% block title %}
+User Filters
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mt-2">USERS</h1>
+<hr class="mt-0 mb-4">
+
+
+
+
+{% comment %} headers for the tables {% endcomment %}
+<div class="table_container">
+  <table class = "table">
+    <tr>
+      <th class>First Name</th>
+      <th class>Last Name</th>
+      <th class>Email</th>
+      <th class>Employee ID</th>
+      <th class>Manager</th>
+      <th class>Tickets</th>
+    </tr>
+  </table>
+
+{% comment %} normal db {% endcomment %}
+{% if user_db %}
+{% for user in user_db %}
+  <table class = "table">
+  <tr class = "displayed_table_values">
+    <td><a href="individual_user/{{user.username}}">{{user.first_name}}</td></a>
+    <td>{{user.last_name}}</td>
+    <td>{{user.email}}</td>
+    <td><a href="individual_user/{{user.username}}">{{user.username}}</td></a>
+    <td>{{user.is_superuser}}</td>
+    <td>{{user.ticket}}</td>
+  </tr>
+  </table>
+
+  {%endfor%}
+  {% endif %}
+
+</div>
+  {% comment %} filtered select button and submit {% endcomment %}
+  <form method="POST">
+    {% csrf_token %}
+    <label for="filter" class = filter_by>Filter Search:</label>
+    <select name="filter_by" id="filter_by_user">
+      
+      <option value="fname">First Name</option>
+      <option value="employeeID">Employee ID</option>
+      <option value="manager">Manager</option>
+    </select>
+    <button type="submit" class= "search_submit">Submit</button>
+  </form>
+{% endblock %}

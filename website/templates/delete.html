@@ -1,0 +1,27 @@
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+  
+  </style>
+  {% extends 'base.html' %}
+
+
+{% block content %}
+
+    {% comment %} <h1 class="mt-2">Delete User</h1> {% endcomment %}
+    <hr class="mt-0 mb-4">
+
+    <h3>Are you sure you want to delete "{{specific}}"  from {{entry}}</h3>
+    
+    <form action="" method="post">
+    {% csrf_token %}
+    <button type="submit" class= "submit" value = "confirmed" name = confirm> Confirm </button>
+    <br>
+    <button type="submit" class= "submit" value = "deny" name = confirm> Deny </button>
+</form>
+
+
+
+{% endblock %}

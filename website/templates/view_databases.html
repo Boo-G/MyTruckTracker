@@ -1,0 +1,181 @@
+<style type="text/css">
+  form  { display: table;      }
+  p     { display: table-row;  }
+  label { display: table-cell; }
+  input { display: table-cell; }
+  td { overflow: hidden; }
+  .delete {
+    color: #C81900;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .delete:hover {
+    color: #0056b3;
+    text-decoration: underline; 
+  }
+  .edit {
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .edit:hover {
+    color: #0056b3;
+    text-decoration: underline; 
+  }
+  th, td {
+    border: 3px solid #C81900;
+    padding: 8px;
+    text-align: left;
+  }
+
+
+</style>
+
+{% extends 'base.html' %}
+{% block title %}
+Edit Databases
+{% endblock %}
+
+
+{% block content %}
+<h1 class="mt-2">VEHICLE DATABASE</h1>
+<hr class="mt-0 mb-4">
+
+{% comment %} headers for the tables {% endcomment %}
+<div class="table_container">
+  <table class = "table">
+    <tr>
+      <th class>Assigned Employee</th>
+      <th class>License Plate</th>
+      <th class>Location</th>
+      <th class>Available</th>
+      <th class>VIN</th>
+      <th class>Make</th>
+      <th class>Model</th>
+      <th class>Year</th>
+      <th class>Action</th>
+    </tr>
+  </table>
+  
+
+{% comment %} show all database {% endcomment %}
+{% for vehicle in vehicle_db %}
+  <table class = "table">
+    <tr>
+
+      {% if vehicle.assignedEmployee == "Available"%}
+      <td>{{vehicle.assignedEmployee}}</td>
+      {%else%}
+      <td><a href="individual_vehicle/{{vehicle.id}}">{{vehicle.assignedEmployee}}</td></a>
+      {%endif%}
+      <td><a href="individual_vehicle/{{vehicle.id}}">{{vehicle.LicensePlate}}</td></a>
+      <td>{{vehicle.currentTrip.location}}</td>
+      <td>{{vehicle.currentTrip.tripType}}</td>
+      <td>{{vehicle.VIN}}</td>
+      <td>{{vehicle.make}}</td>
+      <td>{{vehicle.model}}</td>
+      <td>{{vehicle.year}}</td>
+      <td><a  class = "edit" href = "/edit_truck/{{vehicle.id}}">EDIT</a> | <a class = "delete" href = "/delete/{{vehicle.VIN}}">DELETE</a></td>      
+    </tr>
+
+  </table>
+  {%endfor%}
+</div>
+
+<h1 class="mt-2">USERS DATABASE</h1>
+<hr class="mt-0 mb-4">
+
+{% comment %} headers for the users table {% endcomment %}
+<div class="table_container">
+  <table class = "table">
+    <tr>
+      <th class>First Name</th>
+      <th class>Last Name</th>
+      <th class>Email</th>
+      <th class>Employee ID</th>
+      <th class>Action</th>
+    </tr>
+  </table>
+
+  {% for user in user_db %}
+  <table class = "table">
+  <tr class = "displayed_table_values">
+    <td>{{user.first_name}}</td>
+    <td>{{user.last_name}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.username}}</td>
+    <td text-align="right"><a class = "edit" href = "/edit_users/{{user.username}}">EDIT</a> | <a class = "delete" href = "/delete/{{user.username}}">DELETE</a></td>
+  </tr>
+  </table>
+
+  {%endfor%}
+
+</div>
+
+<h1 class="mt-2">EXPENSES DATABASE</h1>
+<hr class="mt-0 mb-4">
+
+{% comment %} headers for the tickets table {% endcomment %}
+<div class="table_container">
+  <table class = "table">
+    <tr>
+      <th class>Shop Name</th>
+      <th class>Date</th>
+      <th class>Repair</th>
+      <th class>Cost</th>
+      <th class>License Plate</th>
+      <th class>Action</th>
+    </tr>
+  </table>
+
+  {% for expense in expense_db %}
+  <table class = "table">
+      <tr class = "displayed_table_values">
+          <td>{{expense.shopName}}</td>
+          <td>{{expense.date}}</td>
+          <td>{{expense.repairType}}</td>
+          <td>{{expense.amountCharged}}</td>
+          <td>{{expense.LicensePlate}}</td>
+          <td text-align="right"><a class = "edit" href = "/edit_expenses/{{expense.id}}">EDIT</a> | <a class = "delete" href = "/delete/{{expense.repairType}}">DELETE</a></td>      
+      </tr>
+    </table>
+
+  {%endfor%}
+
+</div>
+
+<h1 class="mt-2">TICKETS DATABASE</h1>
+<hr class="mt-0 mb-4">
+
+{% comment %} headers for the tickets table {% endcomment %}
+<div class="table_container">
+  <table class = "table">
+    <tr>
+      <th class>Ticket Type</th>
+      <th class>Ticket Amount</th>
+      <th class>Date Charged</th>
+      <th class>License Plate</th>
+      <th class>User</th>
+      <th class>Action</th>
+    </tr>
+  </table>
+
+  {% for ticket in ticket_db %}
+  <table class = "table">
+      <tr class = "displayed_table_values">
+          <td>{{ticket.ticketType}}</td>
+          <td>{{ticket.ticketAmt}}</td>
+          <td>{{ticket.date}}</td>
+          <td>{{ticket.LicensePlate}}</td>
+          <td>{{ticket.assignedEmployee}}</td>
+          <td text-align="right"><a class = "edit" href = "/edit_tickets/{{ticket.id}}">EDIT</a> | <a class = "delete" href = "/delete/{{ticket.ticketType}}">DELETE</a></td>      
+      </tr>
+    </table>
+
+  {%endfor%}
+<br>
+</div>
+
+
+{% endblock %}

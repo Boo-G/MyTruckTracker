@@ -1,0 +1,77 @@
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+
+
+</style>
+
+{% extends 'base.html' %}
+{% block title %}
+Display Expenses
+{% endblock %}
+
+{% block content %}
+<h1 class="mt-2">EXPENSES</h1>
+<hr class="mt-0 mb-4">
+
+{% comment %} headers for the table expenses {% endcomment %}
+  <div class = "table_container">
+      <table class = "table">
+        <tr>      
+          <th class>Shop Name</th>
+          <th class>Date</th>
+          <th class>Repair</th>
+          <th class>Cost</th>
+          <th class>License Plate</th>
+          <th class>Receipt</th>
+          <th class>Approved</th>
+        </tr>
+      </table>
+
+    {% for expense in expenses %}
+      <table class = "table">
+        <tr class = "displayed_table_values">
+            <td>{{expense.shopName}}</td>
+            <td>{{expense.date}}</td>
+            <td>{{expense.repairType}}</td>
+            <td>{{expense.amountCharged}}</td>
+            <td>{{expense.LicensePlate}}</td>
+            <td>True</td>             
+            <td>{{expense.approved}}</td>
+        </tr>
+      </table>
+
+    {% endfor %}
+  </div>
+  <h3> Personal Vehicle Requests</h3>
+  {% comment %} headers for the table personal vehicle {% endcomment %}
+  <div class = "table_container">
+      <table class = "table">
+        <tr>      
+          <th class>Employee</th>
+          <th class>Reason</th>
+          <th class>Date</th>
+          <th class>Kilometers</th>
+          <th class>Approved</th>
+
+        </tr>
+      </table>
+
+    {% for personal_vehicle in personal_vehicle %}
+      <table class = "table">
+        <tr class = "displayed_table_values">
+            <td>{{personal_vehicle.assignedEmployee}}</td>
+            <td>{{personal_vehicle.reason}}</td>
+            <td>{{personal_vehicle.date}}</td>
+            <td>{{personal_vehicle.km}}</td>
+            <td>{{personal_vehicle.approved}}</td>
+
+        </tr>
+      </table>
+
+    {% endfor %}
+  </div>
+{%endblock%}
+

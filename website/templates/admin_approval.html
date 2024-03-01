@@ -1,0 +1,158 @@
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+
+</style>
+{% extends 'base.html' %}
+{% block title %}
+Admin Approvals
+{% endblock %}
+
+
+{% block content %}
+
+
+<h1 class="mt-2">ADMIN DASHBOARD</h1>
+<hr class="mt-0 mb-4">
+<style>
+    #special-table {
+        width: 50%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th,td {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+</style>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <table class="styled-table" id="special-table">
+        <tr>
+            <td>Vehicle Count</td>
+            <td>{{vehicle_count}}</td>
+        </tr>
+
+        <tr>
+            <td>Expense Count</td>
+            <td>{{expense_count}}</td>
+        </tr>
+
+        <tr>
+            <td>User Count</td>
+            <td>{{user_count}}</td>
+        </tr>
+        <tr>
+            <td>Personal Vehicle Requests</td>
+            <td>{{pv_count}}</td>
+        </tr>
+    </table>
+</form>
+<br/>
+
+
+<h2 class="mt-2">APPROVALS</h2>
+<hr class="mt-0 mb-4">
+<br/>
+<form method=POST>
+    {% csrf_token %}
+    <h3>Expenses</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Expense Name</th>
+                <th>Approved</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for expense in expenses %}
+                    <tr>
+                        <td style="text-align: left;">
+                            Shop:       {{expense.shopName}}  <br/>
+                            Date:       {{expense.date}}  <br/>
+                            Repair:     {{expense.repairType}} <br/>
+                            Cost:       ${{expense.amountCharged}}  <br/>
+                            Plate:      {{expense.LicensePlate}}  <br/>
+                            Receipt:    {{expense.receipt}}
+                        
+                            <br/>
+                        </td>
+                        <td>
+                            {% if expense.approved %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked="checked" value={{expense.id}} name="boxes"> 
+                                </div>
+                            {% else %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value={{expense.id}} name="boxes"> 
+                                </div>
+                            {% endif %}
+                        </td>
+
+                {% endfor %}
+
+
+                    </tbody>
+                </table>
+                <br>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Expense Name</th>
+                            <th>Approved</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            
+                        {% for pv in pv %}
+                                <tr>
+                                    <td style="text-align: left;">
+                                        Employee:   {{pv.assignedEmployee.first_name}}  {{pv.assignedEmployee.last_name}} | {{pv.assignedEmployee.username}}  <br/>
+                                        Reason:   {{pv.reason}}  <br/>
+                                        Date: {{pv.date}} <br/>
+                                        Kilometers:   {{pv.km}}  <br/>
+   
+                                    
+                                        <br/>
+                                    </td>
+                                    <td>
+                                        {% if pv.approved %}
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" checked="checked" value={{pv.id}} name="pvboxes"> 
+                                            </div>
+                                        {% else %}
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value={{pv.id}} name="pvboxes"> 
+                                            </div>
+                                        {% endif %}
+                                    </td>
+            
+                            {% endfor %}
+            
+            
+                                </tbody>
+                            </table>
+                            <br>
+            
+
+
+
+
+
+                <button class= "submit">Update Approvals</button>
+            {% comment %} {%endif%} {% endcomment %}
+</form>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,72 @@
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+
+</style>
+
+
+{% extends 'base.html' %}
+{% block title %}
+Edit Expenses 
+{% endblock %}
+
+
+
+{% block content %}
+<h1 class="mt-2">EDIT EXPENSES INFORMATION</h1>
+<hr class="mt-0 mb-4">
+
+
+
+{% comment %} Creating User inputs for expenses {% endcomment %}
+<form method = POST >
+    {% csrf_token %}
+
+    <fieldset><legend>Edit Expense</legend>
+        
+    <p>
+    <label for = "expense_shop">Shop Name: </label> 
+    <input type ='text' id ="expense_shop" name ="expense_shop"  value="{{expense.shopName}}" required>
+    </select>
+    </p>
+ 
+
+    <p>
+    <label for = "date">Date of Charge: </label> 
+    <input type ='date' id ="date" name ="date"  value="{{expense.date}}" required>
+    </p>
+
+    <p>
+        <label for = "expense_repair">Repair: </label> 
+        <input type ='text' id ="expense_repair" name ="expense_repair"  value="{{expense.repairType}}" required>
+        </select>
+    </p>
+
+    <p>
+        <label for = "expense_cost">Cost: </label> 
+        <input type ='text' id ="expense_cost" name ="expense_cost" value="{{expense.amountCharged}}"  required>
+        </select>
+    </p>
+
+    <p>
+        <label for = "update_lp">Vehicle License Plate: </label> 
+        <select name = 'update_lp' id = "License_plate" value="{{expense.update_lp}}" required = True>
+            {%for license_plate in lp_db%}
+            <option name  = lp value= {{license_plate.id}}> {{license_plate.plateID}} </option>   
+            {%endfor%}
+        </select>
+    </p>
+    <br>
+ 
+    <button type ="submit" class = "submit">Submit</button>
+</fieldset>
+</form>
+
+
+
+
+
+{% endblock %}
+

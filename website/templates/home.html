@@ -1,0 +1,171 @@
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+
+  
+  input[type=checkbox], .signIn { display: none;}
+  
+  input[type=checkbox], .signOut { display: none;}
+  .container {
+    width: 100%;
+    text-align: center;
+
+  }
+  .btn {
+    flex: .1 .1 auto;
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    display: block;
+    background-size: 200% auto;
+    color: white;
+    text-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    transition: 0.5s;
+    background-image: linear-gradient(to right,#C81900 0%, #921200 51%, #C81900 100%);
+    cursor: pointer;
+    position: relative;
+  }
+  .btn:hover{
+    transition: 0.5s;
+    background-image: linear-gradient(to right,#C81900 0%, #921200 51%, #C81900 100%);
+    
+  }
+  .btn:hover {
+    background-position: right center; 
+  }
+  input[type=checkbox]:checked ~ .signIn {
+    
+    display: block;
+  }
+  input[type=checkbox]:checked ~ .signOut {
+    
+    display: block;
+  }
+
+</style>
+
+
+{% extends 'base.html' %}
+{% block title %}
+Home
+{% endblock %}
+
+
+{% block content %}
+<h1 class="mt-2">Welcome To My Truck Tracker</h1>
+<hr class="mt-0 mb-4">
+<br>
+
+
+<div class = 'container'>
+<!-- =-------------------------------------------------------------------------------------------------------------- -->
+<input id="outbutton" type="checkbox" />
+
+
+<label class="btn" for="outbutton">
+  <span>Sign Out Truck</span>
+</label>
+
+<div class="signOut">
+    <form method = "POST" action = "/home">
+    
+    <fieldset><legend>Sign Out Truck</legend>
+        {% csrf_token %}
+        <p>
+
+            <label for = "changedEmployeeID">Employee ID: </label> 
+            <select name = 'changedEmployeeID' id = "assigned_Employee" required = True>
+                {%for user in user_db%}
+                <option id = "sel_user" value= {{user.username}}> {{user.username}} </option>   
+                {%endfor%}
+            </select>
+        </p>
+
+       
+        <p>
+        <label for = "updated_lp">Vehicle License Plate: </label> 
+        <select name = 'updated_lp' id = "License_plate" required = True>
+            {%for license_plate in lp_db%}
+            <option name  = assigned_license_plate value= {{license_plate.id}}> {{license_plate.plateID}} </option>   
+            {%endfor%}
+        </select>
+
+        
+    </p>
+    <p> 
+        <label for="updated_destination">Destination:</label>
+        <input type="text" placeholder = "Regina" name="updated_destination" maxlength="50" required id="id_destination">  
+
+        </select>
+    </p>
+    <p> 
+        <label for="checkout_time">Date and Time:</label>
+        <input type="datetime-local"  name="checkout_time" required id="id_checkoutTime">  
+
+        </select>
+    </p>
+    <input type="hidden" id="checkInOut" name="checkInOut" value="Checked Out" />
+
+
+    <br><br>
+    <button type="submit" class= "submit">Submit</button>
+
+    </fieldset>
+</form>
+</div>
+</div>
+
+<!-- =-------------------------------------------------------------------------------------------------------------- -->
+<div class = 'container'>
+
+<input id="inbutton" type="checkbox" />
+<label class="btn" for="inbutton">
+  <span>Sign in Truck</span>
+</label>
+
+  <div class="signIn">
+<form method = "POST" action = "/home">
+    <fieldset><legend>Sign in Truck</legend>
+        {% csrf_token %}
+        <input type="hidden" id="changedEmployeeID" name="changedEmployeeID" value="Available" />
+
+       
+    <p>
+        <label for = "updated_lp">Vehicle License Plate: </label> 
+        <select name = 'updated_lp' id = "License_plate" required = True>
+            {%for license_plate in lp_db%}
+            <option name  = assigned_license_plate value= {{license_plate.id}}> {{license_plate.plateID}} </option>   
+            {%endfor%}
+        </select>
+    </p>
+    <p> 
+        <label for="updated_destination">Destination:</label>
+        <input type="text" placeholder = "Regina" name="updated_destination" maxlength="50" required id="id_destination">  
+
+        </select>
+    </p>
+    <p> 
+        <label for="checkout_time">Date and Time:</label>
+        <input type="datetime-local"  name="checkout_time" required id="id_checkoutTime">  
+
+        </select>
+    </p>
+
+    <input type="hidden" id="checkInOut" name="checkInOut" value="Available" />
+
+
+    <br><br>
+    <button type="submit" class= "submit">Submit</button>
+
+    </fieldset>
+</form>
+</div>
+</div>
+
+
+
+{% endblock %}

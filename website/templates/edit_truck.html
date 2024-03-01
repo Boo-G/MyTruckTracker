@@ -1,0 +1,94 @@
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+    fieldset {display: inline}
+
+</style>
+
+
+{% extends 'base.html' %}
+{% block title %}
+Edit Vehicle Database
+{% endblock %}
+
+
+{% block content %}
+
+<h1 class="mt-2">EDIT VEHICLE  DATABASE</h1>
+<hr class="mt-0 mb-4">
+
+
+{% if form.errors %}
+    {{form.errors}}
+{% endif %}
+
+<form method="POST"><fieldset><legend>Edit Vehicle Information</legend>
+    {% csrf_token %}
+
+    <input type="hidden" name="record_id" value="{{ record.id }}" />
+    <input type="hidden" id="assignedEmployee" name="assignedEmployee" value="Available" />
+
+
+
+        <p>
+        <label for = "make">Brand: </label> 
+        <input type ='text' id ="make" name ="make" value="{{ truck.make }}" required = True>
+        <br><br>
+        </p>
+    
+        <p>
+        <label for = "model">Model: </label> 
+        <input type ='text' id ="model" name ="model" value="{{ truck.model }}" required = True>
+        <br><br>
+        </p>
+
+        <p>
+            <label for = "updated_license_plate">License Plate: </label> 
+            <select name = 'updated_license_plate' id = "LicensePlate" value="{{ truck.updated_license_plate }}" required = True>
+                {%for license_plate in lp_db%}
+                <option value= {{license_plate.id}}> {{license_plate.plateID}} </option>   
+                {%endfor%}
+            </select>
+        
+        {% if user.is_superuser %}
+
+        <a href = "/add_license_plate">Add new License plate</a>
+        
+        {% endif %}
+       
+        <br><br>
+        </p>
+
+
+        <p>
+        <label for = "year">Year: </label> 
+        <input type ='text' id ="year" name ="year" value="{{ truck.year }}" required = True>
+        <br><br>
+        </p>
+
+
+
+        <p>
+        <label for = "kms">Kilometers: </label> 
+        <input type ='text' id ="kms" name ="kms" value="{{ truck.kms }}" required = True>
+        <br><br>
+        </p>
+
+        <p>
+        <label for = "VIN">VIN: </label> 
+        <input type ='text' id ="VIN" name ="VIN" value="{{ truck.VIN }}" required = True>
+        <br><br>
+        </p>
+
+        
+        <input type="hidden" id="checked_in" name="checked_in" value="Checked Out" />
+
+    </p>
+        <button type="submit" class= "submit"> Submit </button>
+    </fieldset>
+</form>
+
+
+{% endblock %}

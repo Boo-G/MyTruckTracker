@@ -1,0 +1,75 @@
+<style type="text/css">
+  form  { display: table;      }
+  p     { display: table-row;  }
+  label { display: table-cell; }
+  input { display: table-cell; }
+
+</style>
+
+
+
+{% extends 'base.html' %}
+{% block title %}
+Vehicle Filters
+{% endblock %}
+
+
+{% block content %}
+<h1 class="mt-2">VEHICLES</h1>
+<hr class="mt-0 mb-4">
+
+
+{% comment %} headers for the tables {% endcomment %}
+<div class="table_container">
+  <table class = "table">
+    <tr>
+      <th class>Assigned Employee</th>
+      <th class>License Plate</th>
+      <th class>Location</th>
+      <th class>Available</th>
+      <th class>VIN</th>
+      <th class>Make</th>
+      <th class>Model</th>
+      <th class>Year</th>
+    </tr>
+  </table>
+  
+
+{% comment %} show all database {% endcomment %}
+{% for vehicle in vehicles_db %}
+  <table class = "table">
+    <tr>
+
+      {% if vehicle.assignedEmployee == "Available"%}
+      <td>{{vehicle.assignedEmployee}}</td>
+      {%else%}
+      <td><a href="individual_vehicle/{{vehicle.id}}">{{vehicle.assignedEmployee}}</td></a>
+      {%endif%}
+      <td><a href="individual_vehicle/{{vehicle.id}}">{{vehicle.LicensePlate}}</td></a>
+      <td>{{vehicle.currentTrip.location}}</td>
+      <td>{{vehicle.currentTrip.tripType}}</td>
+      <td>{{vehicle.VIN}}</td>
+      <td>{{vehicle.make}}</td>
+      <td>{{vehicle.model}}</td>
+      <td>{{vehicle.year}}</td>
+    </tr>
+
+  </table>
+
+  
+{%endfor%}
+</div>
+{% comment %} filtered select button and submit {% endcomment %}
+<form method="POST">
+  {% csrf_token %}
+  <label for="filter" class = filter_by name = 'filter_by' id = 'filter_by' onChange='window.location = "vehicle.html" + this.selectedIndex;' >Filter Search:</label>
+  <select name="filter_by" id="filter_by" >
+    <option id = "filter_vin" value="vin">VIN</option>
+    <option id = "filter_brand" value="brand">Brand</option>
+    <option id = "filter_emp" value="employee">Employee</option>
+    <option id = "filter_all" value="all">All</option>
+  </select>
+  <button type="submit" class= "search_submit">Submit</button>
+  </form>
+{% endblock %}
+

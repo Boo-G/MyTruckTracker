@@ -1,0 +1,42 @@
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+
+</style>
+
+
+{% extends 'base.html' %}
+{% block title %}
+Sign In
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mt-2">Sign In</h1>
+
+{% comment %} Creating User inputs for expenses {% endcomment %}
+<form method="POST">
+    {% csrf_token %}
+    <fieldset><legend>Login</legend>
+    
+    <p>
+    <label for = "LoginForm">Username: </label> 
+    <input type ='text' id ="username" value = "" name ="username" required>
+    <br><br>
+    </p>
+
+    <p>
+    <label for = "LoginForm">Password: </label> 
+    <input type ='password' id ="password" name ="password" required>
+    <br><br>
+
+
+    {% comment %} file upload, only allows file types of images {% endcomment %}
+
+    </p>
+    <button type="submit" class= "submit">Submit</button>
+    </fieldset>
+</form>
+{% endblock %}

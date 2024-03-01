@@ -1,0 +1,36 @@
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+
+</style>
+
+
+{% extends 'base.html' %}
+{% block title %}
+Expense Tracking
+{% endblock %}
+
+
+
+{% block content %}
+<h1 class="mt-2">EXPENSE TRACKING INFORMATION</h1>
+<hr class="mt-0 mb-4">
+
+
+
+{% comment %} Creating User inputs for adding lisence plate {% endcomment %}
+<form method="POST">
+    {% csrf_token %}
+        <p>
+            <label for = "plateID">License Plate: </label> 
+            <input type ='text' id ="plateID" placeholder = "ABC123" name ="plateID" required = True maxlength="6">
+            <br><br>
+        </p>
+           
+            <button type="submit" class= "submit" > Submit </button>
+        </p>
+    </form>
+{% endblock %}
+

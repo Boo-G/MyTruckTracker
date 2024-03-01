@@ -1,0 +1,109 @@
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+</style>
+
+{% extends 'base.html' %}
+{% block title %}
+Vehicle Information
+{% endblock %}
+
+
+{% block content %}
+    <h1 class="mt-2">Vehicle Information for {{individual_vehicle.LicensePlate}}</h1>
+    <hr class="mt-0 mb-4">
+
+    {% comment %} headers for the table {% endcomment %}
+    <div class = "table_container">
+      <table class = "table">
+          <tr>      
+          <th class>Employee</th>
+          <th class>License Plate</th>
+          <th class>Make</th>
+          <th class>Model</th>
+          <th class>Available</th>
+          <th class>Current Trip</th>
+          </tr>
+        </table>
+
+        <table class = "table">
+            <tr class = "displayed_table_values">
+                <td>{{individual_vehicle.assignedEmployee}}</td>
+                <td>{{individual_vehicle.LicensePlate}}</td>
+                <td>{{individual_vehicle.make}}</td>
+                <td>{{individual_vehicle.model}}</td>
+                <td>{{individual_vehicle.currentTrip.tripType}}</td>
+                <td>{{individual_vehicle.currentTrip.location}}</td>
+                
+            </tr>
+        </table>
+        
+    </div>
+    <h2>Expenses</h2>
+    <hr class="mt-0 mb-4">
+
+    <div class="table_container">
+        <table class="table1">
+            <tr>
+                <th class>Shop</th>
+                <th class>Date Plate</th>
+                <th class>Repair</th>
+                <th class>Amount</th>
+                <th class>Receipt</th>
+                <th class>Approval</th>
+            </tr>
+        </table>
+        
+    {% for expense in expense_all %}
+    {% if individual_vehicle.LicensePlate == expense.LicensePlate %}
+    <table class="table1">
+        <tr class="displayed_table_values">
+        <td>{{ expense.shopName }}</td>
+        <td>{{ expense.date }}</td>
+        <td>{{ expense.repairType }}</td>
+        <td>{{ expense.amountCharged }}</td>
+        <td>{{ expense.receipt }}</td>
+        <td>{{ expense.approved }}</td>
+        </tr>
+    </table>
+    {% endif %}
+    {% empty %}
+    <h3> No current expenses for this vehicle</h3>
+  
+    {% endfor %}
+
+    </div>
+    <h2>Trips</h2>
+    <hr class="mt-0 mb-4">
+      {% comment %}Trip Information {% endcomment %}
+      <div class = "table_container">
+        <table class = "table">
+            <tr>      
+            <th class>Employee</th>
+            <th class>License Plate</th>
+            <th class>Check-In/Check-Out</th>
+            <th class>Check-In Time</th>
+            <th class>Check-Out Time</th>
+             
+            </tr>
+        </table>
+        {%for trip in all_trips%}
+        {%if trip.licensePlate == individual_vehicle.LicensePlate %}
+        <table class = "table">
+           
+            {%if trip.tripType != NONE%}
+                <tr class = "displayed_table_values">
+                    <td>{{trip.user}}</td>
+                    <td>{{trip.licensePlate}}</td>
+                    <td>{{trip.tripType}}</td>
+                    <td>{{trip.checkin}}</td>
+                    <td>{{trip.checkout}}</td>
+                </tr>
+            {%endif%}
+        </table>
+        {%endif%}
+        {%endfor%}
+
+{% endblock %} 

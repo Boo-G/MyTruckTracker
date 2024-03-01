@@ -1,0 +1,102 @@
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+
+</style>
+
+{% extends 'base.html' %}
+{% block title %}
+Search
+{% endblock %}
+
+<!-- =--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=- -->
+<!-- Title Block -->
+{% block content %}
+{% if searched %}
+    {% if vehicles %}
+        <h1 class="mt-2">Search results for: {{searched}}</h1>
+    {% elif users %}
+        <h1 class="mt-2">Search results for: {{searched}}</h1>
+    {% endif %}
+{% endif %}
+
+{% if not searched %}
+    <h1 class = "mt-2">Nothing was searched</h1>
+{% endif %}
+
+<!-- =--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=- -->
+<!-- nothing found in the db case -->
+{% if searched %}
+{% if not vehicles %}
+{% if not users %}
+<h1 class = "mt-2">Nothing was found when searching for: {{searched}} </h1>
+{% endif %}
+{% endif %}
+{% endif %}
+
+<!-- =--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=- -->
+<hr class="mt-0 mb-4">
+<!-- Vehicle search case -->
+
+{% if searched %}
+{% if vehicles %}
+<h2> Vehicle Search Results </h2>
+{% comment %} headers for the table expenses {% endcomment %}
+
+<div class = "table_container">
+    <table class = "table">
+        <tr>      
+            <th class>Assigned Employee</th>
+            <th class>License Plate</th>
+            <th class>Make</th>
+            <th class>Model</th>
+        </tr>
+    </table>
+    {% endif %}
+    
+    {% for vehicle in vehicles %}
+    <table class = "table">
+        <tr class = "displayed_table_values">
+            <td><a href="individual_user/{{vehicle.assignedEmployee}}">{{vehicle.assignedEmployee}}</td></a>
+            <td><a href="individual_vehicle/{{vehicle.id}}">{{vehicle.LicensePlate}}</td></a>
+            <td><a href="individual_vehicle/{{vehicle.id}}">{{vehicle.make}}</td></a>
+            <td><a href="individual_vehicle/{{vehicle.id}}">{{vehicle.model}}</td></a>
+        </tr>
+    </table>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- =--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=- -->
+<!-- User Search case -->
+{% if searched %}
+{% if users %}
+<h2> User Search Results </h2>
+
+<div class = "table_container">
+    <table class = "table">
+        <tr>      
+            <th class>Employee Name</th>
+        </tr>
+    </table>
+    {% endif %}
+    
+    {% for user in users %}
+    <table class = "table">
+        <tr class = "displayed_table_values">
+            
+            <td><a href="individual_user/{{user.username}}">{{user}}</a></td>
+        </tr>
+    </table>
+    {% endfor %}
+</div>
+
+{% endif %}
+<!-- =--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=-=--=-==-=-=-=-=-=-=- -->
+
+
+
+{% endblock %}
+

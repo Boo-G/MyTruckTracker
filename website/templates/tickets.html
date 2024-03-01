@@ -1,0 +1,73 @@
+
+<style type="text/css">
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+    
+</style>
+
+{% extends 'base.html' %}
+{% block title %}
+Expense Tracking
+{% endblock %}
+
+
+
+{% block content %}
+<h1 class="mt-2">TICKET ENTRY</h1>
+<hr class="mt-0 mb-4">
+
+{% comment %} Creating User inputs for expenses {% endcomment %}
+<form method = POST >
+    {% csrf_token %}
+
+    <fieldset><legend>Information About Charge</legend>
+        
+    <p>
+    <label for = "ticket_type">Ticket Type: </label> 
+    <input type ='text' id ="ticket_type" placeholder = "Speeding" name ="ticket_type" required>
+    </select>
+    </p>
+ 
+    <p>
+    <label for = "ticket_cost">Ticket Amount: </label> 
+    <input type ='text' id ="ticket_cost" placeholder = "120" name ="ticket_cost" required>
+    </p>
+
+    <p>
+    <label for = "date">Date of Charge: </label> 
+    <input type ='date' id ="date" name ="date" required>
+    </p>
+
+    <p>
+        <label for = "lp">Vehicle License Plate: </label> 
+        <select name = 'lp' id = "License_plate" required = True>
+            {%for license_plate in lp_db%}
+            <option name  = lp value= {{license_plate.id}}> {{license_plate.plateID}} </option>   
+            {%endfor%}
+        </select>
+    </p>
+
+    <p>
+        <label for = "employeeID">Employee ID: </label> 
+        <select name = 'employeeID' id = "employeeID" required = True>
+            {%for user in user_db%}
+            <option value= {{user.id}}> {{user.username}} </option>   
+            {%endfor%}
+        </select>
+    </p>
+
+
+
+    {% comment %} file upload, only allows file types of images {% endcomment %}
+    <p>
+    <label for = "ticketIMG">Upload a photo of the ticket: </label> 
+    <input type="file" accept = ".pdf, .png, .jpeg, .jpg, .gif, .pdf, .raw" id="ticketIMG" name="ticketIMG" required>
+</p>
+    <button type ="submit" class = "submit">Submit</button>
+</fieldset>
+</form>
+
+{%endblock%}
+
